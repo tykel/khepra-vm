@@ -4,18 +4,18 @@ Khepra VM overview
 CPU
 ---
 
-- 16-bit, 3.999996 MHz
-- 66666 cycles per frame @ 60 Hz
+- 16-bit, `3.999996 MHz`
+- `66666` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
-- Registers: a, b, c, d, e, f, pc, sp
-  - f doubles as frame pointer
+- Registers: `a, b, c, d, e, f, pc, sp`
+  - `f` doubles as frame pointer
 - Programmable interrupt vector
 
 Memory
 ------
 
-- 64 KB address space
-  
+- `64 KB` address space
+```
   | fff8 - ffff : interrupt vector
   | fff4 - fff7 : serial port shift reg.
   | fff2 - fff3 : ctlr 2 shift reg.
@@ -32,19 +32,19 @@ Memory
   | 8000 - 9fff : 8K  fixed RAM bank (SP = 9ffe, grows back)
   | 4000 - 7fff : 16K swap. ROM bank
   | 0000 - 3fff : 16K fixed ROM bank
-
-- So: 32 KB ROM + 24 KB RAM visible at any point in time
+```
+- So: `32 KB` ROM + `24 KB` RAM visible at any point in time
 - Mappers supported on cartridge, communicate via MMIO for bank swapping
 
 Video
 -----
 
-- 256x224 screen resolution
-- 60 Hz refresh rate
-- Tile-based graphics - 8x8
-  - 64 hardware colors
-  - 4x 16-color palettes
-- Hardware sprites 64x
+- `256x224` screen resolution
+- `60` Hz refresh rate
+- Tile-based graphics - `8x8`
+  - `64` hardware colors
+  - `4x` `16`-color palettes
+- Hardware sprites `64x`
 
 Audio
 -----
@@ -56,6 +56,6 @@ Input
 -----
 
 - 2x controller ports
-  - Controller: Du Dd Dl Dr St Sl A B L R
+  - Controller: `D-Up, D-Down, D-Left, D-Right, Start, Select, A, B, L, R`
 - 1x serial port for various use
 
