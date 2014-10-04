@@ -23,9 +23,10 @@ Memory
   | ffe1        : RAM bank select
   | ffe0        : ROM bank select
   | e904 - e905 : dpcm sample pointer
-  | e900 - e903 : hw. audio reg.
-  | e841        : fine scroll reg.
-  | e840        : coarse scroll reg.
+  | e900 - e907 : hw. audio reg.
+  | e842 - e845 : scroll reg.
+  | e841        : sprite palette index
+  | e840        : tilemap palette index
   | e7c0 - e83f : hw. sprite coord.
   | e700 - e7bf : hw. sprite reg.
   | e7c0 - e7ff : palette 4
