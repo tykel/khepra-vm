@@ -37,10 +37,7 @@ Memory
   | eb40        : tilemap palette index
   | eac0 - eb3f : hw. sprite coord.
   | ea00 - eabf : hw. sprite reg.
-  | e9c0 - e9ff : palette 4
-  | e980 - e9bf : palette 3
-  | e940 - e97f : palette 2
-  | e900 - e93f : palette 1
+  | e900 - e9ff : palettes 1-16
   | e480 - e8ff : layer 2 tilemap
   | e000 - e47f : layer 1 tilemap
   | a000 - dfff : 16K swap. RAM bank 
@@ -58,8 +55,9 @@ Video
 - `256x224` screen resolution
 - `60` Hz refresh rate
 - Tile-based graphics - `8x8` pixels
-  - `64` hardware colors
-  - `4x` `16`-color palettes, definable at run-time
+  - `256` hardware colors
+  - `16x` `16`-color palettes, definable at run-time
+  - Separate tilemap/sprite palettes: up to `32` colors simultaneously
 - Hardware sprites `64x`
   - Sprite clustering supported in hardware
 
