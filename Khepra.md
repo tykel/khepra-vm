@@ -61,7 +61,7 @@ Video
 - Hardware sprites `64x`
   - Sprite clustering supported in hardware
 
-Audio
+Audio [[link](Audio.md)]
 -----
 
 - 4 audio channels
