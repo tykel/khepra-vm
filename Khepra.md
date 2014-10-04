@@ -34,7 +34,7 @@ Memory
   | eb46 - eb49 : layer 2 scroll reg.
   | eb42 - eb45 : layer 1 scroll reg.
   | eb41        : sprite palette index
-  | eb40        : tilemap palette index
+  | eb40        : layers 1-2 palette indexes
   | eac0 - eb3f : hw. sprite coord.
   | ea00 - eabf : hw. sprite reg.
   | e900 - e9ff : palettes 1-16
@@ -57,7 +57,7 @@ Video
 - Tile-based graphics - `8x8` pixels
   - `256` hardware colors
   - `16x` `16`-color palettes, definable at run-time
-  - Separate tilemap/sprite palettes: up to `32` colors simultaneously
+  - Separate layer1/layer2/sprite palettes: up to `48` colors simultaneously
 - Hardware sprites `64x`
   - Sprite clustering supported in hardware
 
