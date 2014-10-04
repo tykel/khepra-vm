@@ -4,12 +4,14 @@ Khepra VM overview
 CPU
 ---
 
-- 16-bit, `3.999996 MHz`
-- `66666` cycles per frame @ 60 Hz
+- 16-bit, `3.93216 MHz`
+- `65536` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
 - Registers: `a, b, c, d, e, f, pc, sp`
   - `f` doubles as frame pointer
-- Programmable interrupt vector
+- Programmable interrupt vector, 8x entries
+- 4x counters available
+  - Available freqs.: 30, 60, 120, 240, 480, 960 Hz
 
 Memory
 ------
@@ -20,37 +22,44 @@ Memory
   | fff4 - fff7 : serial port shift reg.
   | fff2 - fff3 : ctlr 2 shift reg.
   | fff0 - fff1 : ctlr 1 shift reg.
+  | ffe6 - ffef :
+  | ffe2 - ffe5 : hi-res counter reg.
   | ffe1        : RAM bank select
   | ffe0        : ROM bank select
-  | e904 - e905 : dpcm sample pointer
-  | e900 - e907 : hw. audio reg.
-  | e842 - e845 : scroll reg.
-  | e841        : sprite palette index
-  | e840        : tilemap palette index
-  | e7c0 - e83f : hw. sprite coord.
-  | e700 - e7bf : hw. sprite reg.
-  | e7c0 - e7ff : palette 4
-  | e780 - e7bf : palette 3
-  | e740 - e77f : palette 2
-  | e700 - e73f : palette 1
-  | e000 - e6ff : screen tilemap
+  | ff00 - ffdf :
+  | fe00 - feff : cartridge perm. storage
+  | ec06 - fdff :
+  | ec04 - ec05 : dpcm sample pointer
+  | ec00 - ec07 : hw. audio reg.
+  | eb46 - eb49 : layer 2 scroll reg.
+  | eb42 - eb45 : layer 1 scroll reg.
+  | eb41        : sprite palette index
+  | eb40        : tilemap palette index
+  | eac0 - eb3f : hw. sprite coord.
+  | ea00 - eabf : hw. sprite reg.
+  | e9c0 - e9ff : palette 4
+  | e980 - e9bf : palette 3
+  | e940 - e97f : palette 2
+  | e900 - e93f : palette 1
+  | e480 - e8ff : layer 2 tilemap
+  | e000 - e47f : layer 1 tilemap
   | a000 - dfff : 16K swap. RAM bank 
   | 8000 - 9fff : 8K  fixed RAM bank (SP = 9ffe, grows back)
   | 4000 - 7fff : 16K swap. ROM bank
   | 0000 - 3fff : 16K fixed ROM bank
 ```
 - So: `32 KB` ROM + `24 KB` RAM visible at any point in time
+  - Bank swapping possible for ROM/RAM by writing to MMIO registers
   - Over `4 MB` ROM + over `4 MB` RAM theoretical maximum
-- Mappers supported on cartridge, communicate via MMIO for bank swapping
 
 Video
 -----
 
 - `256x224` screen resolution
 - `60` Hz refresh rate
-- Tile-based graphics - `8x8`
+- Tile-based graphics - `8x8` pixels
   - `64` hardware colors
-  - `4x` `16`-color palettes
+  - `4x` `16`-color palettes, definable at run-time
 - Hardware sprites `64x`
   - Sprite clustering supported in hardware
 
