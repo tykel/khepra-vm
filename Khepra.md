@@ -22,18 +22,24 @@ Memory
   | fff0 - fff1 : ctlr 1 shift reg.
   | ffe1        : RAM bank select
   | ffe0        : ROM bank select
-  | e454 - e455 : dpcm sample reg.
-  | e450 - e453 : hardware audio reg.
-  | e441 - e442 : 
-  | e440        : h-scroll reg.
-  | e0c0 - e43f : screen tilemap
-  | e000 - e0bf : hardware sprite reg.
+  | e904 - e905 : dpcm sample pointer
+  | e900 - e903 : hw. audio reg.
+  | e841        : fine scroll reg.
+  | e840        : coarse scroll reg.
+  | e7c0 - e83f : hw. sprite coord.
+  | e700 - e7bf : hw. sprite reg.
+  | e7c0 - e7ff : palette 4
+  | e780 - e7bf : palette 3
+  | e740 - e77f : palette 2
+  | e700 - e73f : palette 1
+  | e000 - e6ff : screen tilemap
   | a000 - dfff : 16K swap. RAM bank 
   | 8000 - 9fff : 8K  fixed RAM bank (SP = 9ffe, grows back)
   | 4000 - 7fff : 16K swap. ROM bank
   | 0000 - 3fff : 16K fixed ROM bank
 ```
 - So: `32 KB` ROM + `24 KB` RAM visible at any point in time
+  - Over `4 MB` ROM + over `4 MB` RAM theoretical maximum
 - Mappers supported on cartridge, communicate via MMIO for bank swapping
 
 Video
@@ -45,6 +51,7 @@ Video
   - `64` hardware colors
   - `4x` `16`-color palettes
 - Hardware sprites `64x`
+  - Sprite clustering supported in hardware
 
 Audio
 -----
