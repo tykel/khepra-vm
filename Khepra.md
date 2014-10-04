@@ -8,7 +8,7 @@ CPU
 - `65536` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
 - Registers: `a, b, c, d, e, f, pc, sp`
-  - `f` doubles as frame pointer
+  - `f` doubles as an implied frame pointer
 - Programmable interrupt vector, 8x entries
 - 4x counters available
   - Available freqs.: 30, 60, 120, 240, 480, 960 Hz
