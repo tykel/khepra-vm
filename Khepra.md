@@ -28,9 +28,19 @@ Memory
   | ffe0        : ROM bank select
   | ff00 - ffdf :
   | fe00 - feff : cartridge perm. storage
-  | ec12 - fdff :
-  | ec10 - ec11 : dpcm sample pointer
+  | f800 - fdff : 
+  | f000 - f7ff : 2K dpcm swap. ROM bank
+  | ecf0 - efff :
+  | ece0 - ecef : audio dpcm rate map
+  | ecd0 - ecdf : audio release map
+  | ecc0 - eccf : audio sustain map
+  | ecb0 - ecbf : audio decay map
+  | eca0 - ecaf : audio attack map
+  | ec90 - ec9f : audio length map
+  | ec10 - ec8f : audio tone map
   | ec00 - ec0f : hw. audio reg.
+  | eb51 - ebff :
+  | eb50        : tile ROM bank select
   | eb46 - eb49 : layer 2 scroll reg.
   | eb42 - eb45 : layer 1 scroll reg.
   | eb41        : sprite palette index
@@ -40,14 +50,15 @@ Memory
   | e900 - e9ff : palettes 1-16
   | e480 - e8ff : layer 2 tilemap
   | e000 - e47f : layer 1 tilemap
-  | a000 - dfff : 16K swap. RAM bank 
-  | 8000 - 9fff : 8K  fixed RAM bank (SP = 9ffe, grows back)
+  | c000 - dfff : 8K tile swap. ROM bank
+  | a000 - bfff : 8K swap. RAM bank 
+  | 8000 - 9fff : 8K  fixed RAM bank (SP = 9ffe, grows towards 0000)
   | 4000 - 7fff : 16K swap. ROM bank
   | 0000 - 3fff : 16K fixed ROM bank
 ```
-- So: `32 KB` ROM + `24 KB` RAM visible at any point in time
+- So: `32 KB` ROM + `8 KB` tile ROM + `2 KB` audio ROM + `16 KB` RAM visible at any point in time
   - Bank swapping possible for ROM/RAM by writing to MMIO registers
-  - Over `4 MB` ROM + over `4 MB` RAM theoretical maximum
+  - Total: `4+ MB` ROM + `2 MB` tile ROM + `512 KB` audio ROM + `4+ MB` RAM theoretical maximum
 
 Video
 -----
