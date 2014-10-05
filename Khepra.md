@@ -10,7 +10,7 @@ CPU
 - Registers: `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, f, p, s, c`
   - `0..9, f` are general-purpose
   - `f` doubles as conventional implicit frame pointer
-  - `p` is intructiion pointer / program counter
+  - `p` is instruction pointer / program counter
   - `s` is stack pointer
   - `c` is control register (flags)
 - Programmable interrupt vector, 8x entries
