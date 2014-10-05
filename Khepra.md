@@ -28,9 +28,9 @@ Memory
   | ffe0        : ROM bank select
   | ff00 - ffdf :
   | fe00 - feff : cartridge perm. storage
-  | ed02 - fdff :
-  | ed00 - ed01 : dpcm sample pointer
-  | ec00 - ecff : hw. audio reg.
+  | ec12 - fdff :
+  | ec10 - ec11 : dpcm sample pointer
+  | ec00 - ec0f : hw. audio reg.
   | eb46 - eb49 : layer 2 scroll reg.
   | eb42 - eb45 : layer 1 scroll reg.
   | eb41        : sprite palette index
