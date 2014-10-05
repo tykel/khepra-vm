@@ -48,7 +48,7 @@ ec0c:   7      0
         SSSSSSSS           S=size.lo
         
 ec0d:   7      0
-        xIFFFFSS           S=size.hi, F=freq, I=interrupt
+        IFFFFSSS           S=size.hi, F=freq, I=interrupt
         
 ec0e:   7      0
         BBBBBBBB           B=bank index           
@@ -57,11 +57,11 @@ ec0f:   7      0
         xxxxxxxx           
         
 ```
-- Size is the size in bytes of the sample in bytes (0 - 1024)
+- Size is the size in bytes of the sample in bytes (0 - 2048)
 - Frequency is the playback frequency (16-value lookup)
 - Interrupt enables an IRQ at playback end
 - Bank index is used for bank switching on the sample ROM bank
 
-DMC samples are 1-bit delta-modulated samples at rate looked up from `ec0d` bits 2-5.
+DMC samples are 1-bit delta-modulated samples at rate looked up from `ec0d` bits 3-6.
 
 Sample output has 16 levels.
