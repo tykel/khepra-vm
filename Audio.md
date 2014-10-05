@@ -7,20 +7,29 @@ Pulse (square) wave generator
 -----------------------------
 Register at `ec00 - ec03`.
 
-```
+```        
 ec00:   7      0
-        ELLLLLLL           L=length, E=use envelope
-
+        xxFFFFFF           F=frequency
+        
 ec01:   7      0
-        RRRRAAAA           A=attack, R=release
+        EVVVLLLL           L=length, V=volume, E=use envelope
         
 ec02:   7      0
-        FFFFVVVD           D=decay, V=volume, F=freq.lo
-        
+        RRRRAAAA           A=attack, R=release
+
 ec03:   7      0
-        FFFFFFFF           F=freq.hi
+        SSSSDDDD           D=decay, S=sustain
         
 ```
+- Length is the duration of the sound.
+ * ms = Length/240 (16-value lookup, 0-255)
+- Volume is the loudness of the sound. (8 levels)
+- E toggles whether to use the envelope parameters, or play at constant volume.
+- Frequency is the "note" of the sound.
+ * Hz = 3932160/(32*(F+1)) (64-value 16-bit lookup, 0 - 4,096)
+- Attack specifies how long it takes, in ms, to reach full volume. (16-value lookup)
+- Release specifies how long it takes, in ms, to fall back to silence. (16-value lookup)
+
 Triangle wave generator
 -----------------------
 Register at `ec04 - ec07`.
@@ -36,19 +45,23 @@ Delta-modulated channel
 Register at `ec0c - ec0f`.
 ```
 ec0c:   7      0
-        RFFxxxxx           R=repeat, F=freq
-
+        SSSSSSSS           S=size.lo
+        
 ec0d:   7      0
-        SSSSSSSS           S=size
+        xIFFFFSS           S=size.hi, F=freq, I=interrupt
         
 ec0e:   7      0
-        LLLLLLLL           L=length
+        BBBBBBBB           B=bank index           
         
 ec0f:   7      0
         xxxxxxxx           
         
 ```
+- Size is the size in bytes of the sample in bytes (0 - 1024)
+- Frequency is the playback frequency (16-value lookup)
+- Interrupt enables an IRQ at playback end
+- Bank index is used for bank switching on the sample ROM bank
 
-Additional 16-bit pointer to sample at `ec10`.
+DMC samples are 1-bit delta-modulated samples at rate looked up from `ec0d` bits 2-5.
 
-DMC samples are 1-bit delta-modulated samples at rate looked up from `ec0c`.
+Sample output has 16 levels.
