@@ -1,7 +1,7 @@
 CPU
 ===
 
-Khepra has a fully 16-bit processor, with 8 registers, with a 64 KB address space.
+Khepra has a fully 16-bit processor, with 8 registers, and a 64 KB address space.
 
 Words are interpreted in little-endian ordering.
 
@@ -15,6 +15,18 @@ There are 8 registers of 16-bit word size:
 - `f` is the Flags status register.
 
 All registers may be used in instructions.
+
+Flags register structure:
+
+| `x x x` | `I` | `N` | `O` | `C` | `Z` |
+|---------|-----|-----|-----|-----|-----|
+||Interrupt|Negative|Overflow|Carry|Zero|
+
+- `I` specifies whether to handle interrupts
+- `N` indicates a result which is negative
+- `O` indicates a result which cannot be represented as a *signed* 16-bit value 
+- `C` indicates a result which cannot be represented as an *unsigned* 16-bit value
+- `Z` indicates a result of 0.
 
 Instruction structure
 ---
