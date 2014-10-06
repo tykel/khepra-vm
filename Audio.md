@@ -48,19 +48,21 @@ ec0c:   7      0
         SSSSSSSS           S=size.lo
         
 ec0d:   7      0
-        IFFFFSSS           S=size.hi, F=freq, I=interrupt
+        FFFFISSS           S=size.hi, I=interrupt, F=freq
         
 ec0e:   7      0
         BBBBBBBB           B=bank index           
         
 ec0f:   7      0
-        xxxxxxxx           
+        OOOOOOOO           O=offset
         
 ```
 - Size is the size in bytes of the sample in bytes (0 - 2048)
 - Frequency is the playback frequency (16-value lookup)
 - Interrupt enables an IRQ at playback end
 - Bank index is used for bank switching on the sample ROM bank
+- Offset is used to calculate sample start address.
+  - `A: 1111 0OOO OOOO O000` in binary or `Addr = $f000 + 8*Offs` in hex
 
 DMC samples are 1-bit delta-modulated samples at rate looked up from `ec0d` bits 3-6.
 
