@@ -19,24 +19,28 @@ Instruction structure
 Instructions are either 16-bit, 24-bit or 32-bit (2, 3 or 4 bytes) depending on their addressing mode.
 
 Byte 0:
+
 | `C C C C  C C` | `M M` |
 |---|---|
 | Opcode | Addr. mode. hi |
 
 Byte 1:
+
 | `M M` | `X X  X` | `Y Y Y` |
 |---|---|---|
 | Addr.mode lo | Reg. X | Reg. Y |
 
 Byte 2:
-| `D D D D  D D D D` |
-|---|
-| Data lo |
+
+| `D D D D  D D D D` ||
+|---|---|
+| Data lo ||
 
 Byte 3:
-| `D D D D  D D D D` |
-|---|
-| Data hi |
+
+| `D D D D  D D D D` ||
+|---|---|
+| Data hi ||
 
 Addressing modes
 ---
