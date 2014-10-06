@@ -1,7 +1,7 @@
 Khepra VM overview
 ==================
 
-CPU
+[CPU](CPU.md)
 ---
 
 - 16-bit, `3.93216 MHz`
