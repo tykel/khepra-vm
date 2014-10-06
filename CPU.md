@@ -32,15 +32,15 @@ Byte 1:
 
 Byte 2:
 
-| `D D D D  D D D D` ||
-|---|---|
-| Data lo ||
+| `D D D D  D D D D` |
+|---|
+| Data lo |
 
 Byte 3:
 
-| `D D D D  D D D D` ||
-|---|---|
-| Data hi ||
+| `D D D D  D D D D` |
+|---|
+| Data hi |
 
 Addressing modes
 ---
