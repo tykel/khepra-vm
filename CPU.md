@@ -16,14 +16,27 @@ All registers may be used in instructions.
 
 Instruction structure
 ---
-Instructions are either 16-bit, 24-bit or 32-bit (2, 3 or 4 bytes) depending on their addressing mode:
+Instructions are either 16-bit, 24-bit or 32-bit (2, 3 or 4 bytes) depending on their addressing mode.
 
-| `CCCC CC`| `MM` | | `MM` | `XX X` | `YYY` |
-|---|---|---|---|---|---|
-| Opcode | Addr. mode. hi | | Addr.mode lo | Reg. X | Reg. Y |
+Byte 0:
+| `C C C C  C C` | `M M` |
+|---|---|
+| Opcode | Addr. mode. hi |
 
-| `DDDD DDDD` | | ` DDDD DDDD` |
+Byte 1:
+| `M M` | `X X  X` | `Y Y Y` |
 |---|---|---|
-| Data lo | | Data hi |
+| Addr.mode lo | Reg. X | Reg. Y |
+
+Byte 2:
+| `D D D D  D D D D` |
+|---|
+| Data lo |
+
+Byte 3:
+| `D D D D  D D D D` |
+|---|
+| Data hi |
+
 Addressing modes
 ---
