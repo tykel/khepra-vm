@@ -69,4 +69,4 @@ Their are 16 addressing modes, *plus* an implicit mode.
 | e | Indirect word [byte] | `IW1` | `i b[$xxxx]` | 4 B |
 | f | Indirect word [word] | `IW2` | `i [$xxxx]` | 4 B |
 
-*Note: Indirect byte accesses (modes 5,6,b,c) are PC relative. They allow accesses from [PC-128] to [PC+127].*
+*Note: Indirect byte accesses (modes `5,6,b,c`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
