@@ -18,9 +18,9 @@ All registers may be used in instructions.
 
 Flags register structure:
 
-| `x x x` | `I` | `N` | `O` | `C` | `Z` |
-|---------|-----|-----|-----|-----|-----|
-||Interrupt|Negative|Overflow|Carry|Zero|
+| `x` | `x` | `x` | `I` | `N` | `O` | `C` | `Z` |
+|-----|-----|-----|-----|-----|-----|-----|-----|
+||||Interrupt|Negative|Overflow|Carry|Zero|
 
 - `I` specifies whether to handle interrupts
 - `N` indicates a result which is negative
