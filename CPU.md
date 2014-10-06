@@ -18,7 +18,7 @@ All registers may be used in instructions.
 
 Instruction structure
 ---
-Instructions are either 16-bit, 24-bit or 32-bit (2, 3 or 4 bytes) depending on their addressing mode.
+Instructions are either 8-bit, 16-bit, 24-bit or 32-bit (1, 2, 3 or 4 bytes) depending on their addressing mode.
 
 Byte 0:
 
@@ -51,7 +51,7 @@ Their are 16 addressing modes, *plus* an implicit mode.
 
 | Mode | Name | Short | Format | Instr. Length |
 |------|------|-------|--------|---------------|
-| - | Implicit | `U` | `i` | 2 B |
+| - | Implicit | `U` | `i` | 1 B |
 | 0 | Direct reg. | `DR` | `i r0` | 2 B |
 | 1 | Indirect reg. | `IR` | `i [r0]` | 2 B |
 | 2 | Reg./Direct reg. | `R_DR` | `i r0, r1` | 2 B |
@@ -70,3 +70,5 @@ Their are 16 addressing modes, *plus* an implicit mode.
 | f | Indirect word [word] | `IW2` | `i [$xxxx]` | 4 B |
 
 *Note: Indirect byte accesses (modes `5,6,b,c`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
+
+We notice that instructions using Implicit mode are only one byte long, even though the addressing mode field runs into byte 2 of the instruction. This is because the first four instructions use implicit mode *only*, so if bits 2-3 are `0`, we stop fetching bytes for the instruction.
