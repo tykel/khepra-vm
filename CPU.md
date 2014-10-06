@@ -86,6 +86,7 @@ Their are 16 addressing modes, *plus* an implicit mode.
 - The `W` ('Word?') flag governs whether to act on 8-bit or 16-bit (word) operands.
   - On registers, only the lower 8 bits (7-0) will be used. This includes mode 2.
   - For memory accesses, only one byte (8 bits) will be loaded from, or stored to, the address in memory.
+  - Assemblers should look for a `.B` suffix to the opcode to signify that `W=0`. An optional `.W` suffix might be used for clarity to signify `W=1`, although it is implied.
 
 - The instructions follow Intel convention, that is: `OP TO, FROM`
 
