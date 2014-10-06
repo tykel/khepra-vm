@@ -7,12 +7,11 @@ CPU
 - 16-bit, `3.93216 MHz`
 - `65536` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
-- Registers: `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, f, p, s, c`
-  - `0..9, f` are general-purpose
-  - `f` doubles as conventional implicit frame pointer
+- Registers: `a, b, c, d, e, p, s, f`
+  - `a,b,c,d,e` are general-purpose
   - `p` is instruction pointer / program counter
   - `s` is stack pointer
-  - `c` is control register (flags)
+  - `f` is flags register
 - Programmable interrupt vector, 8x entries
 - 4x counters available
   - Available freqs.: 30, 60, 120, 240, 480, 960 Hz
