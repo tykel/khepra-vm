@@ -83,6 +83,10 @@ Their are 16 addressing modes, *plus* an implicit mode.
 
 *Note: Indirect byte accesses (modes `7,b,e`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
 
-The instructions follow Intel convention, that is: `OP TO, FROM`
+- The `W` ('Word?') flag governs whether to act on 8-bit or 16-bit (word) operands.
+  - On registers, only the lower 8 bits (7-0) will be used. This includes mode 2.
+  - For memory accesses, only one byte (8 bits) will be loaded from, or stored to, the address in memory.
 
-We notice that instructions using the implicit Void mode are only one byte long, even though the addressing mode field runs into byte 2 of the instruction. This is because the first four instructions use implicit mode *only*, so if bits 2-3 are `0`, we stop fetching bytes for the instruction.
+- The instructions follow Intel convention, that is: `OP TO, FROM`
+
+- We notice that instructions using the implicit Void mode are only one byte long, even though the addressing mode field runs into byte 2 of the instruction. This is because the first four instructions use implicit mode *only*, so if bits 2-3 are `0`, we stop fetching bytes for the instruction.
