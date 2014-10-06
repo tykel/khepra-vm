@@ -34,9 +34,9 @@ Instructions are either 8-bit, 16-bit, 24-bit or 32-bit (1, 2, 3 or 4 bytes) dep
 
 Byte 0:
 
-| `C C C C  C C` | `M M` |
-|---|---|
-| Opcode | Addr. mode. hi |
+| `W` | `C C C  C C` | `M M` |
+|---|---|---|
+| Word? | Opcode | Addr. mode. hi |
 
 Byte 1:
 
@@ -63,26 +63,24 @@ Their are 16 addressing modes, *plus* an implicit mode.
 
 | Mode | Name | Short | Format | Instr. Length |
 |------|------|-------|--------|---------------|
-| - | Implicit | `U` | `i` | 1 B |
+| - | Void | `V` | `i` | 1 B |
 | 0 | Direct reg. | `DR` | `i r0` | 2 B |
 | 1 | Indirect reg. | `IR` | `i [r0]` | 2 B |
-| 2 | Reg./Direct reg. | `R_DR` | `i r0, r1` | 2 B |
-| 3 | Reg./Indirect reg. | `R_IR` | `i r0, [r1]` | 2 B |
-| 4 | Reg./Direct byte | `R_DB` | `i r0, $xx` | 3 B |
-| 5 | Reg./Indirect byte [byte] | `R_IB1` | `i r0, b[$xx]` | 3 B |
-| 6 | Reg./Indirect byte [word] | `R_IB2` | `i r0, [$xx]` | 3 B |
-| 7 | Reg./Direct word | `R_DW` | `i r0, $xxxx` | 4 B |
-| 8 | Reg./Indirect word [byte] | `R_IW1` | `i r0, b[$xxxx]` | 4 B |
-| 9 | Reg./Indirect word [word] | `R_IW2` | `i r0, [$xxxx]` | 4 B |
-| a | Direct byte | `DB` | `i $xx` | 3 B |
-| b | Indirect byte [byte] | `IB1` | `i b[$ff]` | 3 B |
-| c | Indirect byte [word] | `IB2` | `i [$ff]` | 3 B |
-| d | Direct word | `DW` | `i $xxxx` | 4 B |
-| e | Indirect word [byte] | `IW1` | `i b[$xxxx]` | 4 B |
-| f | Indirect word [word] | `IW2` | `i [$xxxx]` | 4 B |
+| 2 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B |
+| 3 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B |
+| 4 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B |
+| 5 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B |
+| 6 | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B |
+| 7 | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B |
+| 8 | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B |
+| 9 | Di.byte | `DB` | `i $xx` | 3 B |
+| a | Indi.byte offs. | `IB` | `i [$xx]` | 3 B |
+| b | Di.word | `DW` | `i $xxxx` | 4 B |
+| c | Indi.word | `IW` | `i [$xxxx]` | 4 B |
+| d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B |
+| e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B |
+| f | - | - | - | - |
 
-*Note: Indirect byte accesses (modes `5,6,b,c`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
-
-*Note: The `b` prefix on indirect memory accesses specifies an 8-bit rather than a 16-bit load/store from/to memory*.
+*Note: Indirect byte accesses (modes `7,b,e`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
 
 We notice that instructions using Implicit mode are only one byte long, even though the addressing mode field runs into byte 2 of the instruction. This is because the first four instructions use implicit mode *only*, so if bits 2-3 are `0`, we stop fetching bytes for the instruction.
