@@ -59,7 +59,7 @@ Memory
 
 - So: `32 KB` ROM + `8 KB` tile ROM + `2 KB` audio ROM + `16 KB` RAM visible at any point in time
   - Bank swapping possible for ROM/RAM by writing to MMIO registers
-  - Total: `4+ MB` ROM + `2 MB` tile ROM + `512 KB` audio ROM + `4+ MB` RAM theoretical maximum
+  - Total: `4+ MB` ROM + `2 MB` tile ROM + `512 KB` audio ROM + `2+ MB` RAM theoretical maximum
 
 Video
 -----
