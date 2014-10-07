@@ -5,6 +5,8 @@ Khepra has a fully 16-bit processor, with 8 registers, and a 64 KB address space
 
 Words are interpreted in little-endian ordering.
 
+The clock frequency is 3,932,160 cycles per second. [60*65536]
+
 Registers
 ---
 There are 8 registers of 16-bit word size:
