@@ -72,17 +72,17 @@ Their are 16 addressing modes, *plus* an implicit mode.
 | - | Void | `V` | `i` | 1 B | 2 |
 | 0 | Direct reg. | `DR` | `i r0` | 2 B | 2 |
 | 1 | Indirect reg. | `IR` | `i [r0]` | 2 B | 4 |
-| 2 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B | 2 |
-| 3 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B | 4 |
-| 4 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B | 4 |
-| 5 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B | 3 |
-| 6 | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B | 4 |
-| 7 | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B | 3 |
-| 8 | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B | 4 |
-| 9 | Di.byte | `DB` | `i $xx` | 3 B | 3 |
-| a | Indi.byte offs. | `IB` | `i [$xx]` | 3 B | 4 |
-| b | Di.word | `DW` | `i $xxxx` | 4 B | 3 |
-| c | Indi.word | `IW` | `i [$xxxx]` | 4 B | 4 |
+| 2 | Di.byte | `DB` | `i $xx` | 3 B | 3 |
+| 3 | Indi.byte offs. | `IB` | `i [$xx]` | 3 B | 4 |
+| 4 | Di.word | `DW` | `i $xxxx` | 4 B | 3 |
+| 5 | Indi.word | `IW` | `i [$xxxx]` | 4 B | 4 |
+| 6 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B | 2 |
+| 7 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B | 4 |
+| 8 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B | 4 |
+| 9 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B | 3 |
+| a | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B | 4 |
+| b | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B | 3 |
+| c | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B | 4 |
 | d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B | 4 |
 | e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B | 4 |
 | f | - | - | - | - | - |
@@ -101,10 +101,37 @@ Their are 16 addressing modes, *plus* an implicit mode.
 Instructions
 ------------
 
-| Op. | Mnemonic | Does | Flags | Modes |
-|-----|----------|------|-------|-------|
+| Op. | Mnemonic | Does... | Flags | Modes |
+|-----|----------|-------- |-------|-------|
 | `00`| `SEI` | `f |= $10` | `I` | - |
 | `01`| `CLI` | `f &= ~$10`| `I` | - |
-| `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | - | - |
+| `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | `I N O C Z` | - |
 | `03`| `RTS` | `p = [s]; s += 2` | - | - |
-| `
+| `04`| `MV x, y` | `x = y` | `N Z` | `6789abcde` |
+| `05`| `JP x` | `p = x` | -  | `012345` |
+| `06`| `CL x` | `[s] = p; s -= 2; p = x` | - | `012345` |
+| `07`| `JZ x` | `if (f & $1) then p = x` | - | `012345` |
+| `08`| `CZ x` | `if (f & $1) then { [s] = p; s -= 2; p = x }` | - | `012345` |
+| `09`| `JC x` | `if (f & $2) then p = x` | - | `012345` |
+| `0a`| `CC x` | `if (f & $2) then { [s] = p; s -= 2; p = x }` | - | `012345` |
+| `0b`| `JO x` | `if (f & $4) then p = x` | - | `012345` |
+| `0c`| `CO x` | `if (f & $4) then { [s] = p; s -= 2; p = x }` | - | `012345` |
+| `0d`| `JN x` | `if (f & $8) then p = x` | - | `012345` |
+| `0e`| `CN x` | `if (f & $8) then { [s] = p; s -= 2; p = x }` | - | `012345` |
+| `0f`| `NOT x` | `x = ~x` | `N Z` | `012345` |
+| `10`| `INC x` | `x += 1` | `N O C Z` | `012345` |
+| `11`| `DEC x` | `x -= 1` | `N O C Z` | `012345` |
+| `12`| `IND x` | `x += 2` | `N O C Z` | `012345` |
+| `13`| `DED x` | `x -= 2` | `N O C Z` | `012345` |
+| `14`| `CMP x, y` | `temp = x - y` | `N O C Z` | `6789abcde` |
+| `15`| `TST x, y` | `temp = x & y` | `N Z` | `6789abcde` |
+| `16`| `ADD x, y` | `x += y` | `N O C Z` | `6789abcde` |
+| `17`| `SUB x, y` | `x -= y` | `N O C Z` | `6789abcde` |
+| `18`| `MUL x, y` | `x *= y` | `N O C Z` | `6789abcde` |
+| `19`| `DIV x, y` | `x /= y` | `N O C Z` | `6789abcde` |
+| `1a`| `LSL x, y` | `x <<= y` | `N C Z` | `6789abcde` |
+| `1b`| `LSR x, y` | `(unsigned) x >>= y` | `N Z` | `6789abcde` |
+| `1c`| `ASR x, y` | `(signed) x >>= y` | `N C Z` | `6789abcde` |
+| `1d`| `AND x, y` | `x &= y` | `N Z` | `6789abcde` |
+| `1e`| `OR x, y` | `x |= y` | `N Z` | `6789abcde` |
+| `1f`| `XOR x, y` | `x ^= y` | `N Z` | `6789abcde` |
