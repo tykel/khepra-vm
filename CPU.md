@@ -69,7 +69,7 @@ Their are 16 addressing modes, *plus* an implicit mode.
 
 | Mode | Name | Short | Format | Instr. Length | Clocks |
 |------|------|-------|--------|---------------|--------|
-| - | Void | `V` | `i` | 1 B | 2 |
+| - | Void | `V` | `i` | 1 B | *variable* |
 | 0 | Direct reg. | `DR` | `i r0` | 2 B | 2 |
 | 1 | Indirect reg. | `IR` | `i [r0]` | 2 B | 4 |
 | 2 | Di.byte | `DB` | `i $xx` | 3 B | 3 |
@@ -103,8 +103,8 @@ Instructions
 
 | Op. | Mnemonic | Does... | Flags | Modes |
 |-----|----------|-------- |-------|-------|
-| `00`| `SEI` | `f |= $10` | `I` | - |
-| `01`| `CLI` | `f &= ~$10`| `I` | - |
+| `00`| `NOP` | - | - | - |
+| `01`| `INT` | `[s] = p; s -= 2; f |= $10; p = [$fffe]`| `I` | - |
 | `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | `I N O C Z` | - |
 | `03`| `RTS` | `p = [s]; s += 2` | - | - |
 | `04`| `JP x` | `p = x` | -  | `012345` |
@@ -135,3 +135,9 @@ Instructions
 | `1d`| `AND x, y` | `x &= y` | `N Z` | `6789abcde` |
 | `1e`| `OR x, y` | `x |= y` | `N Z` | `6789abcde` |
 | `1f`| `XOR x, y` | `x ^= y` | `N Z` | `6789abcde` |
+
+Note on clocks for Void instructions:
+- `NOP`: 2 clocks
+- `INT`: 4 clocks
+- `RTI`: 4 clocks
+- `RTS`: 3 clocks
