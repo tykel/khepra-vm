@@ -63,25 +63,25 @@ Addressing modes
 
 Their are 16 addressing modes, *plus* an implicit mode.
 
-| Mode | Name | Short | Format | Instr. Length |
-|------|------|-------|--------|---------------|
-| - | Void | `V` | `i` | 1 B |
-| 0 | Direct reg. | `DR` | `i r0` | 2 B |
-| 1 | Indirect reg. | `IR` | `i [r0]` | 2 B |
-| 2 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B |
-| 3 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B |
-| 4 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B |
-| 5 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B |
-| 6 | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B |
-| 7 | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B |
-| 8 | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B |
-| 9 | Di.byte | `DB` | `i $xx` | 3 B |
-| a | Indi.byte offs. | `IB` | `i [$xx]` | 3 B |
-| b | Di.word | `DW` | `i $xxxx` | 4 B |
-| c | Indi.word | `IW` | `i [$xxxx]` | 4 B |
-| d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B |
-| e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B |
-| f | - | - | - | - |
+| Mode | Name | Short | Format | Instr. Length | Clocks |
+|------|------|-------|--------|---------------|--------|
+| - | Void | `V` | `i` | 1 B | 2 |
+| 0 | Direct reg. | `DR` | `i r0` | 2 B | 2 |
+| 1 | Indirect reg. | `IR` | `i [r0]` | 2 B | 4 |
+| 2 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B | 2 |
+| 3 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B | 4 |
+| 4 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B | 4 |
+| 5 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B | 3 |
+| 6 | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B | 4 |
+| 7 | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B | 3 |
+| 8 | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B | 4 |
+| 9 | Di.byte | `DB` | `i $xx` | 3 B | 3 |
+| a | Indi.byte offs. | `IB` | `i [$xx]` | 3 B | 4 |
+| b | Di.word | `DW` | `i $xxxx` | 4 B | 3 |
+| c | Indi.word | `IW` | `i [$xxxx]` | 4 B | 4 |
+| d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B | 4 |
+| e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B | 4 |
+| f | - | - | - | - | - |
 
 *Note: Indirect byte accesses (modes `7,b,e`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
 
@@ -93,3 +93,14 @@ Their are 16 addressing modes, *plus* an implicit mode.
 - The instructions follow Intel convention, that is: `OP TO, FROM`
 
 - We notice that instructions using the implicit Void mode are only one byte long, even though the addressing mode field runs into byte 2 of the instruction. This is because the first four instructions use implicit mode *only*, so if bits 2-3 are `0`, we stop fetching bytes for the instruction.
+
+Instructions
+------------
+
+| Op. | Mnemonic | Does | Flags | Modes |
+|-----|----------|------|-------|-------|
+| `00`| `SEI` | `f |= $10` | `I` | - |
+| `01`| `CLI` | `f &= ~$10`| `I` | - |
+| `02`| `RTI` | `f = [s]; s += 1; p = [s]; s += 2` | - | - |
+| `03`| `RTS` | `p = [s]; s += 2` | - | - |
+| `
