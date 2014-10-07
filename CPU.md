@@ -18,14 +18,10 @@ There are 8 registers of 16-bit word size:
 
 All registers may be used in instructions.
 
-Flags register structure:
+Flags register structure, bits 15-0 in order:
 
-Bits 15-8: `x`
-
-Bits 7-0:
-
-| `x` | `x` | `x` | `I` | `N` | `O` | `C` | `Z` |
-|-----|-----|-----|-----|-----|-----|-----|-----|
+| `x x x x  x x x x` | | `x x x I  N O C Z` |
+|-------------------|---|-------------------|
 
 - `I` specifies whether to handle Interrupts
 - `N` indicates a result which is Negative
@@ -40,7 +36,7 @@ Instructions are either 8-bit, 16-bit, 24-bit or 32-bit (1, 2, 3 or 4 bytes) dep
 Bytes 0, 1, 2, 3 in order:
 
 |`W C C C  C C M M` | | `M M X X  X Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
-|---|---|---|---|---|---|---|
+|------------------|---|----------------|---|------------------|---|------------------|
 
 - `W`: Byte/Word operands
 - `C`: Opcode
