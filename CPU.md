@@ -70,7 +70,7 @@ Their are 16 addressing modes, *plus* an implicit mode.
 | e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B | 4 |
 | f | - | - | - | - | - |
 
-*Note: Indirect byte accesses (modes `7,b,e`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
+*Note: Indirect byte accesses (modes `3,a,d`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
 
 - The `W` ('Word?') flag governs whether to act on 8-bit or 16-bit (word) operands.
   - On registers, only the lower 8 bits (7-0) will be used. This includes mode 2.
