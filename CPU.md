@@ -26,13 +26,12 @@ Bits 7-0:
 
 | `x` | `x` | `x` | `I` | `N` | `O` | `C` | `Z` |
 |-----|-----|-----|-----|-----|-----|-----|-----|
-||||Interrupt|Negative|Overflow|Carry|Zero|
 
-- `I` specifies whether to handle interrupts
-- `N` indicates a result which is negative
-- `O` indicates a result which cannot be represented as a *signed* 16-bit value 
-- `C` indicates a result which cannot be represented as an *unsigned* 16-bit value
-- `Z` indicates a result of 0.
+- `I` specifies whether to handle Interrupts
+- `N` indicates a result which is Negative
+- `O` indicates a result which cannot be represented as a *signed* 16-bit value (Overflow)
+- `C` indicates a result which cannot be represented as an *unsigned* 16-bit value (Carry)
+- `Z` indicates a result of Zero (0).
 
 Instruction structure
 ---
