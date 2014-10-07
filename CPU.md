@@ -20,6 +20,10 @@ All registers may be used in instructions.
 
 Flags register structure:
 
+Bits 15-8: `x`
+
+Bits 7-0:
+
 | `x` | `x` | `x` | `I` | `N` | `O` | `C` | `Z` |
 |-----|-----|-----|-----|-----|-----|-----|-----|
 ||||Interrupt|Negative|Overflow|Carry|Zero|
@@ -101,6 +105,6 @@ Instructions
 |-----|----------|------|-------|-------|
 | `00`| `SEI` | `f |= $10` | `I` | - |
 | `01`| `CLI` | `f &= ~$10`| `I` | - |
-| `02`| `RTI` | `f = [s]; s += 1; p = [s]; s += 2` | - | - |
+| `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | - | - |
 | `03`| `RTS` | `p = [s]; s += 2` | - | - |
 | `
