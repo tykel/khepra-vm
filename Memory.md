@@ -62,3 +62,43 @@ RAM, program ROM, tile ROM, and audio ROM are all bank-switched to allow for muc
 more content.
 
 Writes to bank-select registers are effective from the following cycle.
+
+#### Gamepad shift registers
+The game controllers are updated by the system when the `VBLANK` signal is sent.
+The state is serially transmitted from the controller to a 16-bit serial-to-parallel shift
+register, present at `$fff0` for controller 1, and `$fff2` for controller 2.
+
+They encode the state in the following way:
+
+| `_ _ _ _  _ _ R L` | | `B A s S  > < V ^` |
+|-------------------|---|-------------------|
+
+- `^`, `V`, `<`, `>` are the directional pad buttons
+- `S` is the `START` button
+- `s` is the `SELECT` button
+- `A` is the `A` button
+- `B` is the `B` button
+- `L` is the left trigger `L` button
+- `R` is the right trigger `R` button
+
+*Note: it is physically impossible for Up and Down, or Left and Right to be
+pressed simultaneously on the controller. Emulators should preserve this behaviour.*
+
+#### Timer
+There is a timer available, which can be programmed for a number of frequencies.
+The timer register at `$ffe2` has the following format:
+
+| ` _ _ _ _  _ T T T` |
+|---------------------|
+
+`T` is the type, and maps to the following use:
+
+| `T` | Meaning |
+|-----|---------|
+| `0` | Timer is disabled. |
+| `1` | Timer will signal an interrupt at `60 Hz`. |
+| `2` | Timer will signal an interrupt at `120 Hz`. |
+| `3` | Timer will signal an interrupt at `240 Hz`. |
+| `4` | Timer will signal an interrupt at `480 Hz`. |
+| `5` | Timer will signal an interrupt at `960 Hz`. |
+| `6`, `7` | Timer is disabled. |

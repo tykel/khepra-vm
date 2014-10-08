@@ -43,5 +43,7 @@ Input
 
 - 2x controller ports
   - Controller: `D-Up, D-Down, D-Left, D-Right, Start, Select, A, B, L, R`
+  - The shift registers containing controller state are updated at each `VBLANK`
+  signal
 - 1x serial port for various use
-
+  - Reserved for future expansion (for now)
