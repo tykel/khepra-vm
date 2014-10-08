@@ -53,7 +53,7 @@ They have the following format:
 
 #### Palettes
 As mentioned previously, there are three palettes: one for each tilemap layer,
-and one for sprites.
+and one for sprites. They are one of the palettes between `$e900` and `$e9ff`.
 
 The tilemap palette indexes are at `$eb40`:
 
@@ -71,6 +71,18 @@ The sprites' palette index is at `$eb81`:
 - `P` is the sprites' palette index.
 
 The palette used is at `[$e900 + 16*i]`, where `i` is the index.
+
+Palette entry `0` is **always** transparent for sprites and layer 1.
+For layer 2, that color is displayed normally.
+
+At startup, all palettes are zeroed, so all colors begin as black (`#000000`).
+
+###### Global (fixed) palette
+Each palette indexes into the 256-color global palette, which is internal and not
+modifiable.
+
+This palette is the same one as used in Deluxe Paint 4 for the Amiga - see
+[palette.txt](palette.txt) for the list.
 
 #### Scrolling
 There are 2 scrolling mechanisms available:
