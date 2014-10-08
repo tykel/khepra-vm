@@ -40,14 +40,14 @@ Memory
   | `ec90 - ec9f` | audio length map |
   | `ec10 - ec8f` | audio tone map |
   | `ec00 - ec0f` | hw. audio reg. |
-  | `eb51 - ebff` | - |
-  | `eb50`        | tile ROM bank select |
-  | `eb46 - eb49` | layer 2 scroll reg. |
-  | `eb42 - eb45` | layer 1 scroll reg. |
-  | `eb41`        | sprite palette index |
-  | `eb40`        | layers 1-2 palette indexes |
-  | `eac0 - eb3f` | hw. sprite coord. |
-  | `ea00 - eabf` | hw. sprite reg. |
+  | `eb91 - ebff` | - |
+  | `eb90`        | tile ROM bank select |
+  | `eb86 - eb89` | layer 2 scroll reg. |
+  | `eb82 - eb85` | layer 1 scroll reg. |
+  | `eb81`        | sprite palette index |
+  | `eb80`        | layers 1-2 palette indexes |
+  | `eb00 - eb7f` | hw. sprite coord. |
+  | `ea00 - eaff` | hw. sprite reg. |
   | `e900 - e9ff` | palettes 1-16 |
   | `e480 - e8ff` | layer 2 tilemap |
   | `e000 - e47f` | layer 1 tilemap |
