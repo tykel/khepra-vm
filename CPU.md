@@ -5,7 +5,7 @@ Khepra has a fully 16-bit processor, with 8 registers, and a 64 KB address space
 
 Words are interpreted in little-endian ordering.
 
-The clock frequency is 3,932,160 cycles per second. [60*65536]
+The clock frequency is `3,932,160` cycles per second. [`60 x 65536`]
 
 Registers
 ---
@@ -35,8 +35,8 @@ Instructions are either 8-bit, 16-bit, 24-bit or 32-bit (1, 2, 3 or 4 bytes) dep
 
 Bytes 0, 1, 2, 3 in order:
 
-|`W C C C  C C M M` | | `M M X X  X Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
-|------------------|---|----------------|---|------------------|---|------------------|
+|`W C C C  C C M M` | | `M M X X  X Y Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
+|------------------|---|------------------|---|------------------|---|------------------|
 
 - `W`: Byte/Word operands
 - `C`: Opcode
