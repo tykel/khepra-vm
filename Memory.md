@@ -56,3 +56,9 @@ Khepra maps it in the following way (descending addresses):
 | `8000 - 9fff` | 8K  fixed RAM bank |
 | `4000 - 7fff` | 16K swap. ROM bank |
 | `0000 - 3fff` | 16K fixed ROM bank |
+
+#### Memory banks
+RAM, program ROM, tile ROM, and audio ROM are all bank-switched to allow for much
+more content.
+
+Writes to bank-select registers are effective from the following cycle.

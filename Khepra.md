@@ -9,8 +9,8 @@ CPU [[link](CPU.md)]
 - Orthogonal ISA, MMIO for cleanliness
 - Registers: `a, b, c, d, e, p, s, f`
 - Programmable interrupt vector, 8x entries
-- 4x counters available
-  - Available freqs.: 30, 60, 120, 240, 480, 960 Hz
+- Counter available
+  - Available freqs.: 60, 120, 240, 480, 960 Hz
 
 Memory [[link](Memory.md)]
 ------
