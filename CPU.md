@@ -41,8 +41,8 @@ Bytes 0, 1, 2, 3 in order:
 - `W`: Byte/Word operands
 - `C`: Opcode
 - `M`: (Addressing) Mode
-- `X`: Register TO
-- `Y`: Register FROM
+- `X`: Register X 
+- `Y`: Register Y
 - `D`: Immediate operand (Data)
 
 Addressing modes
