@@ -35,7 +35,7 @@ Instructions are either `8`-bit, `16`-bit, `24`-bit or `32`-bit (`1`, `2`, `3` o
 
 Bytes 0, 1, 2, 3 in order:
 
-|`W C C C  C C M M` | | `X X X Y  Y Y M M` | | `D D D D  D D D D` | | `D D D D  D D D D`|
+|`W C C C  C C M M` | | `M M X X  X Y Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
 |------------------|---|------------------|---|------------------|---|------------------|
 
 - `W`: Byte/Word operands
