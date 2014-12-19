@@ -2,6 +2,7 @@ khepra
 ======
 
 A retro VM specification and implementation.
+Sister project [qpra](https://github.com/tykel/qpra) is the first khepra emulator.
 
 What is Khepra?
 ---
