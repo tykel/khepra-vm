@@ -27,15 +27,13 @@ The proposed file extension is `.kpr`, for KhePra Rom.
 |--------|--------|-------------|
 | `$0040`| `16,384`| ROM bank @ `$0000`|
 | `$4040`| `16,384 * P`| ROM banks @ `$4000`|
-| `$4040 + $4000*P`| `8,192`| RAM bank @ `$8000`|
-| `$6040 + $4000*P`| `8,192 * R`| RAM banks @ `$a000`|
-| `$6040 + $4000*P + $2000*R`| `8,192 * T`| Tile ROM banks @ `$c000`|
-| `$6040 + $4000*P + $2000*R + $2000*T`| `2,048 * A`| Tile ROM banks @ `$f000`|
-| `$6040 + $4000*P + $2000*R + $2000*T + $800*A`| `256`| Permanent storage @ `$fe00`|
+| `$4040 + $4000*P`| `8,192 * T`| Tile ROM banks @ `$c000`|
+| `$4040 + $4000*P + $2000*T`| `2,048 * A`| Audio DPCM ROM banks @ `$f000`|
+| `$4040 + $4000*P + $2000*T + $800*A`| `256`| Permanent storage @ `$fe00`|
 
 *Note: the "Permanent storage" section is writable by the emulator*.
 
-Total size: `$6140 + $4000*P + $2000*R + $2000*T + $800*A`
+Total size: `$4140 + $4000*P + $2000*T + $800*A`
 
 E.g. for a ROM with 1 extra RAM bank, 2 extra ROM banks, 5 tile ROM banks and 2
 audio ROM banks, the size will be:
