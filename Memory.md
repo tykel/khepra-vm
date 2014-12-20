@@ -14,7 +14,7 @@ Khepra maps it in the following way (descending addresses):
 | `ffe6 - ffef` | - |
 | `ffe2 - ffe5` | hi-res counter reg. |
 | `ffe1`        | RAM bank select |
-| `ffe0`        | RAM bank select |
+| `ffe0`        | ROM bank select |
 | `ff00 - ffdf` | - |
 | `fe00 - feff` | cartridge perm. storage |
 
