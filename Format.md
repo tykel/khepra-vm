@@ -12,29 +12,25 @@ The proposed file extension is `.kpr`, for KhePra Rom.
 |--------|--------|-------|-------------|
 | `$0000`|`4`     |`"KHPR"`| Magic number |
 | `$0004`|`4`     | `$xxxx` (S) | Total file size (incl. this header) |
-| `$0004`|`4`     | `$xxxx` (C) | CRC32 checksum (excl. this header) |
-| `$0008`|`1`     | `$xx` (P) | Number of Program ROM banks |
-| `$0009`|`1`     | `$xx` (R) | Number of RAM banks |
-| `$000a`|`1`     | `$xx` (T) *(T >= 1)* | Number of Tile ROM banks |
-| `$000b`|`1`     | `$xx` (A) | Number of Audio ROM banks |
-| `$000c`|`4`     | `0000`  | Reserved |
-| `$0010`|`16`    | `"..."` (N) | ROM Name |
-| `$0020`|`32`    | `"..."` (D) | ROM Description |
+| `$0008`|`4`     | `$xxxx` (C) | CRC32 checksum (excl. this header) |
+| `$000c`|`1`     | `$xx` (P) | Number of Program ROM banks |
+| `$000d`|`1`     | `$xx` (R) | Number of RAM banks |
+| `$000e`|`1`     | `$xx` (T) *(T >= 1)* | Number of Tile ROM banks |
+| `$000f`|`1`     | `$xx` (A) | Number of Audio ROM banks |
+| `$0010`|`4`     | `0000`  | Reserved |
+| `$0014`|`16`    | `"..."` (N) | ROM Name |
+| `$0024`|`32`    | `"..."` (D) | ROM Description |
 
 #### Data
 
 | Offset | Length | Description |
 |--------|--------|-------------|
-| `$0040`| `16,384`| ROM bank @ `$0000`|
-| `$4040`| `16,384 * P`| ROM banks @ `$4000`|
-| `$4040 + $4000*P`| `8,192 * T`| Tile ROM banks @ `$c000`|
-| `$4040 + $4000*P + $2000*T`| `2,048 * A`| Audio DPCM ROM banks @ `$f000`|
-| `$4040 + $4000*P + $2000*T + $800*A`| `256`| Permanent storage @ `$fe00`|
+| `$0044`| `16,384`| ROM bank @ `$0000`|
+| `$4044`| `16,384 * P`| ROM banks @ `$4000`|
+| `$4044 + $4000*P`| `8,192 * T`| Tile ROM banks @ `$c000`|
+| `$4044 + $4000*P + $2000*T`| `2,048 * A`| Audio DPCM ROM banks @ `$f000`|
+| `$4044 + $4000*P + $2000*T + $800*A`| `256`| Permanent storage @ `$fe00`|
 
 *Note: the "Permanent storage" section is writable by the emulator*.
 
-Total size: `$4140 + $4000*P + $2000*T + $800*A`
-
-E.g. for a ROM with 1 extra RAM bank, 2 extra ROM banks, 5 tile ROM banks and 2
-audio ROM banks, the size will be:
-* `$4140 + $4000*2 + $2000*5 + $800*2` = `$1b140` = `110,916` bytes.
+Total size: `$4144 + $4000*P + $2000*T + $800*A`
