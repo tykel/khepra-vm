@@ -37,4 +37,4 @@ Total size: `$4140 + $4000*P + $2000*T + $800*A`
 
 E.g. for a ROM with 1 extra RAM bank, 2 extra ROM banks, 5 tile ROM banks and 2
 audio ROM banks, the size will be:
-* `$6140 + $4000*2 + $2000*1 + $2000*5 + $800*2` = `$1b140` = `110,916` bytes.
+* `$4140 + $4000*2 + $2000*5 + $800*2` = `$1b140` = `110,916` bytes.
