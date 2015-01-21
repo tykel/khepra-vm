@@ -15,7 +15,7 @@ Register at `ec00 - ec03`.
 - `V` is the volume of the sound. (8 levels)
 - `E` toggles whether to use the envelope parameters, or play at constant volume.
 - `F` is the frequency or "note" of the sound.
- * Hz = 3932160/(32*(F+1)) (64-value 16-bit lookup, 0 - 4,096)
+ * Hz = `3932160/(32*(F+1))` (64-value 16-bit lookup, 0 - 4,096)
 - `A` is attack, which specifies how long it takes, in ms, to reach full volume. (16-value lookup)
 - `R` is release, which specifies how long it takes, in ms, to fall back to silence. (16-value lookup)
 
