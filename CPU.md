@@ -35,11 +35,11 @@ Instructions are either `8`-bit, `16`-bit, `24`-bit or `32`-bit (`1`, `2`, `3` o
 
 Bytes 0, 1, 2, 3 in order:
 
-|`W C C C  C C M M` | | `M M X X  X Y Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
+|`C C C C  C W M M` | | `M M X X  X Y Y Y` | | `D D D D  D D D D` | | `D D D D  D D D D`|
 |------------------|---|------------------|---|------------------|---|------------------|
 
-- `W`: Byte/Word operands
 - `C`: Opcode
+- `W`: Byte/Word operands
 - `M`: (Addressing) Mode
 - `X`: Register X 
 - `Y`: Register Y
@@ -50,25 +50,25 @@ Addressing modes
 
 Their are 16 addressing modes, *plus* an implicit mode.
 
-| Mode | Name | Short | Format | Instr. Length | Clocks |
-|------|------|-------|--------|---------------|--------|
-| - | Void | `V` | `i` | 1 B | *variable* |
-| 0 | Direct reg. | `DR` | `i r0` | 2 B | 2 |
-| 1 | Indirect reg. | `IR` | `i [r0]` | 2 B | 4 |
-| 2 | Di.byte | `DB` | `i $xx` | 3 B | 3 |
-| 3 | Indi.byte offs. | `IB` | `i [$xx]` | 3 B | 4 |
-| 4 | Di.word | `DW` | `i $xxxx` | 4 B | 3 |
-| 5 | Indi.word | `IW` | `i [$xxxx]` | 4 B | 4 |
-| 6 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B | 2 |
-| 7 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B | 4 |
-| 8 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B | 4 |
-| 9 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B | 3 |
-| a | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B | 4 |
-| b | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B | 3 |
-| c | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B | 4 |
-| d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B | 4 |
-| e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B | 4 |
-| f | - | - | - | - | - |
+| Mode | Name | Short | Format | Instr. Length |
+|------|------|-------|--------|---------------|
+| - | Void | `V` | `i` | 1 B |
+| 0 | Direct reg. | `DR` | `i r0` | 2 B |
+| 1 | Indirect reg. | `IR` | `i [r0]` | 2 B |
+| 2 | Di.byte | `DB` | `i $xx` | 3 B |
+| 3 | Indi.byte offs. | `IB` | `i [$xx]` | 3 B |
+| 4 | Di.word | `DW` | `i $xxxx` | 4 B |
+| 5 | Indi.word | `IW` | `i [$xxxx]` | 4 B |
+| 6 | Di.reg./Di.reg. | `DR_DR` | `i r0, r1` | 2 B |
+| 7 | Di.reg./Indi.reg. | `DR_IR` | `i r0, [r1]` | 2 B |
+| 8 | Indi.reg./Indi.reg. | `IR_DR` | `i [r0], r1` | 2 B |
+| 9 | Di.reg./Di.byte | `DR_DB` | `i r0, $xx` | 3 B |
+| a | Di.reg./Indi.byte offs. | `DR_IB` | `i r0, [$xx]` | 3 B |
+| b | Di.reg./Di.word | `DR_DW` | `i r0, $xxxx` | 4 B |
+| c | Di.reg./Indi.word | `DR_IW` | `i r0, [$xxxx]` | 4 B |
+| d | Indi.byte offs./Di.reg | `IB_DR` | `i [$xx], r0` | 3 B |
+| e | Indi.word/Di.reg | `IW_DR` | `i [$xxxx], r0` | 4 B |
+| f | - | - | - | - |
 
 *Note: Indirect byte accesses (modes `3,a,d`) are PC relative. They allow accesses from `[PC-128]` to `[PC+127]`.*
 
@@ -84,43 +84,37 @@ Their are 16 addressing modes, *plus* an implicit mode.
 Instructions
 ------------
 
-| Op. | Mnemonic | Does... | Flags | Modes |
-|-----|----------|-------- |-------|-------|
-| `00`| `NOP` | - | - | - |
-| `01`| `INT` | `[s] = p; s -= 2; f |= $10; p = [$fffe]`| `I` | - |
-| `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | `I N O C Z` | - |
-| `03`| `RTS` | `p = [s]; s += 2` | - | - |
-| `04`| `JP x` | `p = x` | -  | `012345` |
-| `05`| `CL x` | `[s] = p; s -= 2; p = x` | - | `012345` |
-| `06`| `JZ x` | `if (f & $1) then p = x` | - | `012345` |
-| `07`| `CZ x` | `if (f & $1) then { [s] = p; s -= 2; p = x }` | - | `012345` |
-| `08`| `JC x` | `if (f & $2) then p = x` | - | `012345` |
-| `09`| `CC x` | `if (f & $2) then { [s] = p; s -= 2; p = x }` | - | `012345` |
-| `0a`| `JO x` | `if (f & $4) then p = x` | - | `012345` |
-| `0b`| `CO x` | `if (f & $4) then { [s] = p; s -= 2; p = x }` | - | `012345` |
-| `0c`| `JN x` | `if (f & $8) then p = x` | - | `012345` |
-| `0d`| `CN x` | `if (f & $8) then { [s] = p; s -= 2; p = x }` | - | `012345` |
-| `0e`| `NOT x` | `x = ~x` | `N Z` | `012345` |
-| `0f`| `INC x` | `x += 1` | `N O C Z` | `012345` |
-| `10`| `DEC x` | `x -= 1` | `N O C Z` | `012345` |
-| `11`| `IND x` | `x += 2` | `N O C Z` | `012345` |
-| `12`| `DED x` | `x -= 2` | `N O C Z` | `012345` |
-| `13`| `MV x, y` | `x = y` | `N Z` | `6789abcde` |
-| `14`| `CMP x, y` | `temp = x - y` | `N O C Z` | `6789abcde` |
-| `15`| `TST x, y` | `temp = x & y` | `N Z` | `6789abcde` |
-| `16`| `ADD x, y` | `x += y` | `N O C Z` | `6789abcde` |
-| `17`| `SUB x, y` | `x -= y` | `N O C Z` | `6789abcde` |
-| `18`| `MUL x, y` | `x *= y` | `N O C Z` | `6789abcde` |
-| `19`| `DIV x, y` | `x /= y` | `N O C Z` | `6789abcde` |
-| `1a`| `LSL x, y` | `x <<= y` | `N C Z` | `6789abcde` |
-| `1b`| `LSR x, y` | `(unsigned) x >>= y` | `N Z` | `6789abcde` |
-| `1c`| `ASR x, y` | `(signed) x >>= y` | `N C Z` | `6789abcde` |
-| `1d`| `AND x, y` | `x &= y` | `N Z` | `6789abcde` |
-| `1e`| `OR x, y` | `x |= y` | `N Z` | `6789abcde` |
-| `1f`| `XOR x, y` | `x ^= y` | `N Z` | `6789abcde` |
-
-Note on clocks for Void instructions:
-- `NOP`: 2 clocks
-- `INT`: 4 clocks
-- `RTI`: 4 clocks
-- `RTS`: 3 clocks
+| Op. | Mnemonic | Does... | Flags | Modes | Clocks |
+|-----|----------|-------- |-------|-------|--------|
+| `00`| `NOP` | - | - | - | 2 |
+| `01`| `INT` | `[s] = p; s -= 2; f |= $10; p = [$fffe]`| `I` | - | 4 |
+| `02`| `RTI` | `f = [s]; s += 2; p = [s]; s += 2` | `I N O C Z` | - | 4 |
+| `03`| `RTS` | `p = [s]; s += 2` | - | - | 3 |
+| `04`| `JP x` | `p = x` | -  | `012345` | 2, 4, 3, 4, 3 |
+| `05`| `CL x` | `[s] = p; s -= 2; p = x` | - | `012345` | 2, 4, 3, 4, 3 |
+| `06`| `JZ x` | `if (f & $1) then p = x` | - | `012345` | 2, 4, 3, 4, 3 |
+| `07`| `CZ x` | `if (f & $1) then { [s] = p; s -= 2; p = x }` | - | `012345` | 2, 4, 3, 4, 3 |
+| `08`| `JC x` | `if (f & $2) then p = x` | - | `012345` | 2, 4, 3, 4, 3 |
+| `09`| `CC x` | `if (f & $2) then { [s] = p; s -= 2; p = x }` | - | `012345` | 2, 4, 3, 4, 3 |
+| `0a`| `JO x` | `if (f & $4) then p = x` | - | `012345` | 2, 4, 3, 4, 3 |
+| `0b`| `CO x` | `if (f & $4) then { [s] = p; s -= 2; p = x }` | - | `012345` | 2, 4, 3, 4, 3 |
+| `0c`| `JN x` | `if (f & $8) then p = x` | - | `012345` | 2, 4, 3, 4, 3 |
+| `0d`| `CN x` | `if (f & $8) then { [s] = p; s -= 2; p = x }` | - | `012345` | 2, 4, 3, 4, 3 |
+| `0e`| `NOT x` | `x = ~x` | `N Z` | `012345` | 2, 4, 3, 4, 3 |
+| `0f`| `INC x` | `x += 1` | `N O C Z` | `012345` | 2, 4, 3, 4, 3 |
+| `10`| `DEC x` | `x -= 1` | `N O C Z` | `012345` | 2, 4, 3, 4, 3 |
+| `11`| `IND x` | `x += 2` | `N O C Z` | `012345` | 2, 4, 3, 4, 3 |
+| `12`| `DED x` | `x -= 2` | `N O C Z` | `012345` | 2, 4, 3, 4, 3 |
+| `13`| `MV x, y` | `x = y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `14`| `CMP x, y` | `temp = x - y` | `N O C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `15`| `TST x, y` | `temp = x & y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `16`| `ADD x, y` | `x += y` | `N O C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `17`| `SUB x, y` | `x -= y` | `N O C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `18`| `MUL x, y` | `x *= y` | `N O C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `19`| `DIV x, y` | `x /= y` | `N O C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1a`| `LSL x, y` | `x <<= y` | `N C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1b`| `LSR x, y` | `(unsigned) x >>= y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1c`| `ASR x, y` | `(signed) x >>= y` | `N C Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1d`| `AND x, y` | `x &= y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1e`| `OR x, y` | `x |= y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
+| `1f`| `XOR x, y` | `x ^= y` | `N Z` | `6789abcde` | 2, 4, 4, 3, 4, 3, 4, 4, 4 |
