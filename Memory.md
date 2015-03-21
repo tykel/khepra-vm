@@ -23,7 +23,8 @@ Khepra maps it in the following way (descending addresses):
 |-------|-------|
 | `f800 - fdff` | - |
 | `f000 - f7ff` | 2K dpcm swap. ROM bank |
-| `ecf0 - efff` | - |
+| `ecf1 - efff` | - |
+| `ecf0`        | audio ROM bank select |
 | `ece0 - ecef` | audio dpcm rate map |
 | `ecd0 - ecdf` | audio release map |
 | `ecc0 - eccf` | audio sustain map |
