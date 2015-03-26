@@ -4,7 +4,7 @@ ROM File Format
 The standard file format for storing and exchanging program ROM dumps is described
 here.
 
-The proposed file extension is `.kpr`, for KhePra Rom.
+The proposed file extension is `.kpr`, for `K`he`P`ra `R`om, but others may be used.
 
 #### File header
 
@@ -21,16 +21,19 @@ The proposed file extension is `.kpr`, for KhePra Rom.
 | `$0014`|`16`    | `"..."` (N) | ROM Name |
 | `$0024`|`32`    | `"..."` (D) | ROM Description |
 
+Total header size: `$44` = `68` bytes.
+
 #### Data
 
-| Offset | Length | Description |
-|--------|--------|-------------|
-| `$0044`| `16,384`| ROM bank @ `$0000`|
-| `$4044`| `16,384 * P`| ROM banks @ `$4000`|
-| `$4044 + $4000*P`| `8,192 * T`| Tile ROM banks @ `$c000`|
-| `$4044 + $4000*P + $2000*T`| `2,048 * A`| Audio DPCM ROM banks @ `$f000`|
-| `$4044 + $4000*P + $2000*T + $800*A`| `256`| Permanent storage @ `$fe00`|
+Each memory bank is preceded by a `4`-byte header:
 
-*Note: the "Permanent storage" section is writable by the emulator*.
+| Offset | Length | Value | Description |
+|--------|--------|-------|-------------|
+|`$0000` |`1`     |`$xx`(T)| Bank type   |
+|`$0001` |`1`     |`$xx`(N)| Bank number (swap. banks only)|
+|`$0002` |`2`     |`$xxxx`(S)| Bank size (must match spec.)|
 
-Total size: `$4144 + $4000*P + $2000*T + $800*A`
+The bank data of size `S` follow thereafter.
+If `S` does not match the size of the bank as defined in the memory map, the loading shall fail.
+
+NOTE: Banks may be in any order in the file.
