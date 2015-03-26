@@ -29,11 +29,19 @@ Each memory bank is preceded by a `4`-byte header:
 
 | Offset | Length | Value | Description |
 |--------|--------|-------|-------------|
-|`$0000` |`1`     |`$xx`(T)| Bank type   |
-|`$0001` |`1`     |`$xx`(N)| Bank number (swap. banks only)|
-|`$0002` |`2`     |`$xxxx`(S)| Bank size (must match spec.)|
+|`$0000` |`1`     |`$xx` (T)| Bank type   |
+|`$0001` |`1`     |`$xx` (N)| Bank number (swap. banks only)|
+|`$0002` |`2`     |`$xxxx` (S)| Bank size (must match spec.)|
 
 The bank data of size `S` follow thereafter.
 If `S` does not match the size of the bank as defined in the memory map, the loading shall fail.
+
+`T` may have the following values:
+- `0`: Fixed ROM bank @ `$0000`
+- `1`: Swap. ROM bank @ `$4000`
+- `2`: Fixed RAM bank @ `$8000`
+- `3`: Swap. RAM bank @ `$a000`
+- `4`: Swap. tile bank @ `$c000`
+- `5`: Swap. audio bank @ `$f000`
 
 NOTE: Banks may be in any order in the file.
