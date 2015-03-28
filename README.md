@@ -23,6 +23,8 @@ It has similarities with the NES, but has a 16-bit processor.
 
 Are there any games yet? Can I write programs for Khepra?
 ---
-Khepra is in development, so there is no software yet.
+Khepra is in development, so there is no *real* software as of yet.
+
+In the [`asm/`](https://github.com/tykel/qpra/tree/master/asm) folder of the [`qpra`](https://github.com/tykel/qpra) tree, you will find test programs and libraries for development on the system.
 
 You are welcome to write programs targetting this system, and share them!
