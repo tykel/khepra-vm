@@ -11,7 +11,7 @@ CPU [[link](CPU.md)]
 - `65536` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
 - Registers: `a, b, c, d, e, p, s, f`
-- Programmable interrupt vector, 8x entries
+- Programmable interrupt vector, 4x entries (1 user IRQ, 3 hardware IRQs)
 - Counter available
   - Available freqs.: 60, 120, 240, 480, 960 Hz
 
@@ -33,7 +33,7 @@ Video [[link](Video.md)]
   - `16x` `16`-color palettes, definable at run-time
   - Separate layer1/layer2/sprite palettes: up to `48` colors simultaneously
 - Hardware sprites `64x`
-  - Sprite clustering supported in hardware
+  - Sprite clustering supported in hardware (up to `64` independent "groups")
 
 Audio [[link](Audio.md)]
 -----
