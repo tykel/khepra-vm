@@ -127,4 +127,6 @@ The `VBLANK` period lasts exactly `6000` cycles, or `~1.525879` milliseconds. An
 interrupt is raised at the beginning of this period, and jumps to the appropriate
 handler specified in `$fff8`.
 
+Additionally, an `HBLANK` period occurs at the end of each scanline. A scanline lasts `17527.5` cycles, or `4.45747` milliseconds, of which the `HBLANK` is the last `119.5` cycles. Thus, a pixel is drawn every `68` cycles.
+
 Any memory accesses to video chip memory done outside of `VBLANK` are simply ignored.
