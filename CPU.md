@@ -5,7 +5,7 @@ Khepra has a fully 16-bit processor, with 8 registers, and a 64 KB address space
 
 Words are interpreted in little-endian ordering.
 
-The clock frequency is `3,932,160` cycles per second. [`60 x 65536`]
+The CPU's clock frequency is `5.360520` MHz, which is `1/4` of the master (VPU) frequency; see [VPU.md](VPU.md) for more information.
 
 Registers
 ---
