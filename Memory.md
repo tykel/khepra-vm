@@ -11,8 +11,8 @@ Khepra maps it in the following way (descending addresses):
 | `fff4 - fff7` | serial port shift reg. |
 | `fff2 - fff3` | pad 2 shift reg. |
 | `fff0 - fff1` | pad 1 shift reg. |
-| `ffe6 - ffef` | - |
-| `ffe2 - ffe5` | hi-res counter reg. |
+| `ffe4 - ffef` | - |
+| `ffe2 - ffe3` | hi-res counter reg. |
 | `ffe1`        | RAM bank select |
 | `ffe0`        | ROM bank select |
 | `ff00 - ffdf` | - |
@@ -86,20 +86,13 @@ They encode the state in the following way:
 pressed simultaneously on the controller. Emulators should preserve this behaviour.*
 
 #### Timer
-There is a timer available, which can be programmed for a number of frequencies.
-The timer register at `$ffe2` has the following format:
+There is a timer available, which counts down a desired cycle number. It may also be used to synchronize to the `H-Blank` signal at every scanline.
 
-| ` _ _ _ _  _ T T T` |
-|---------------------|
+The timer register at `$ffe2-3` has the following format:
 
-`T` is the type, and maps to the following use:
+| `V V V V  V V V H`  | | `V V V V  V V V V` |
+|---------------------|---|---------------------|
 
-| `T` | Meaning |
+| `H` | Fire an interrupt at H-Blank. If this bit is set, the remaining bits are ignored. |
+| `V` | Fire an interrupt after `V * 2` cycles (little-endian!) |
 |-----|---------|
-| `0` | Timer is disabled. |
-| `1` | Timer will signal an interrupt at `60 Hz`. |
-| `2` | Timer will signal an interrupt at `120 Hz`. |
-| `3` | Timer will signal an interrupt at `240 Hz`. |
-| `4` | Timer will signal an interrupt at `480 Hz`. |
-| `5` | Timer will signal an interrupt at `960 Hz`. |
-| `6`, `7` | Timer is disabled. |
