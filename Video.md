@@ -1,7 +1,8 @@
 Video
 =====
 
-Khepra outputs a `256x224` pixel picture, at 60 Hz.
+Khepra's Video Processing Unit (VPU) outputs a `256x224` pixel picture, at 60 Hz,
+and operates at *4* times the CPU frequency (`21.442080` Mhz, a factor of `341 x 262 x 60`).
 
 Khepra has hardware support for 64 sprites, and 48 simultaneous colors on-screen
 (from a palette of 256). There are also 2 tilemap layers.
@@ -123,10 +124,18 @@ and moves back to the upper left of the screen for the next frame. Khepra render
 to a simplified NTSC signal, with 60 frames per second. Each frame is comprised
 of 224 displayed lines, and each line has 256 distinct pixels.
 
-The `VBLANK` period lasts exactly `6000` cycles, or `~1.525879` milliseconds. An
+The `VBLANK` period lasts exactly `1023` cycles, or `0.19084` milliseconds. An
 interrupt is raised at the beginning of this period, and jumps to the appropriate
 handler specified in `$fff8`.
 
-Additionally, an `HBLANK` period occurs at the end of each scanline. A scanline lasts `17527.5` cycles, or `4.45747` milliseconds, of which the `HBLANK` is the last `119.5` cycles. Thus, a pixel is drawn every `68` cycles.
+Additionally, an `HBLANK` period occurs at the end of each scanline. A scanline lasts `341` cycles, or `~0.063631` milliseconds, of which the `HBLANK` is the first `25` cycles. 
+
+One pixel is drawn every `4` VPU cycles, or equivalently, every CPU cycle.
+
+To summarize, the timing of each scanline looks like this:
+
+| H-Sync | Back porch & colorburst | Pixel data | Front porch |   | Total |
+|--------|-------------------------|------------|-------------|---|-------|
+| 25     | 40                      | 256        | 20          |   | 341   |
 
 Any memory accesses to video chip memory done outside of `VBLANK` are simply ignored.
