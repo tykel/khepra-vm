@@ -7,13 +7,12 @@ ROM File format [[link](Format.md)]
 CPU [[link](CPU.md)]
 ---
 
-- 16-bit, `3.93216 MHz`
-- `65536` cycles per frame @ 60 Hz
+- 16-bit, `5.360520 MHz`
+- `89342` cycles per frame @ 60 Hz
 - Orthogonal ISA, MMIO for cleanliness
 - Registers: `a, b, c, d, e, p, s, f`
 - Programmable interrupt vector, 4x entries (1 user IRQ, 3 hardware IRQs)
 - Counter available
-  - Available freqs.: 60, 120, 240, 480, 960 Hz
 
 Memory [[link](Memory.md)]
 ------
