@@ -90,12 +90,11 @@ There is a timer available, which counts down a desired cycle number. It may als
 
 The timer register at `$ffe2-3` has the following format:
 
-| `V V V V  V V V H`  | | `V V V V  V V V V` |
+| `V V V V  V V H E`  | | `V V V V  V V V V` |
 |---------------------|---|---------------------|
 
+- `E`: Enable timer.
 - `H`: Fire an interrupt at H-Blank. If this bit is set, the remaining bits are ignored.
-- `V`: Fire an interrupt after `V * 2` cycles (little-endian!), if `H == 0`.
+- `V`: Fire an interrupt after `V * 4` cycles (little-endian!), if `H == 0`.
 
-Note: If `H` was set while the timer was in the middle of a cycle countdown, and then cleared again, the countdown restarts from `V * 2`; i.e., the state is cleared.
-
-The timer is disabled by setting all bits to `0`.
+Note: If `H` was set while the timer was in the middle of a cycle countdown, and then cleared again, the countdown restarts from `V * 4`; i.e., the state is cleared.
